@@ -4,7 +4,6 @@ import { createClient } from "@/utils/supabase/client"
 import { genTitle } from "./agent"
 import { useChatStore } from "@/store/useConversationStore"
 import { Message } from "@/hooks/use-chat"
-import { isStringObject } from "util/types"
 
 const supabase = createClient()
 export const getUserIdClient = async ( ): Promise<string | null>=>{
@@ -67,6 +66,74 @@ export const getRecentsChat = async (uID: string): Promise<ChatType[] | null> =>
     
 }
 
-export const uploadMessage = async (message?: Message)=>{
-    console.log('Wysyłam wiadomość', message)
+export const uploadMessage = async (message: Message, chatId: string) => {
+  const { data: currentData, error: fetchError } = await supabase
+    .from('messages')
+    .select('messages')
+    .eq('id', chatId)
+    .single();
+
+  if (fetchError) {
+    throw new Error(`Error fetching messages: ${fetchError.message}`);
+  }
+
+  const currentMessages = currentData?.messages || [];
+  
+  const updatedMessages = [...currentMessages, message];
+
+  const { data, error } = await supabase
+    .from('messages')
+    .update({ messages: updatedMessages })
+    .eq('id', chatId);
+
+  if (error) {
+    throw new Error(`Error adding message: ${error.message}`);
+  }
+
+  return data;
+};
+
+export const uploadSources = async (sources: string[], chatId: string) => {
+  const { data: currentData, error: fetchError } = await supabase
+    .from('messages')
+    .select('sources')
+    .eq('id', chatId)
+    .single();
+
+  if (fetchError) {
+    throw new Error(`Error fetching messages: ${fetchError.message}`);
+  }
+
+  const currentSources = currentData?.sources || [];
+  
+  const updatedSources = [...currentSources, ...sources];
+
+  const { data, error } = await supabase
+    .from('messages')
+    .update({ sources: updatedSources })
+    .eq('id', chatId);
+
+  if (error) {
+    throw new Error(`Error adding message: ${error.message}`);
+  }
+
+  return data;
+};
+
+export const loadChatMessages = async (chatId: string): Promise<any | null> => {
+  const { data, error } = await supabase
+    .from('messages')
+    .select('messages, sources')
+    .eq('id', chatId)
+    .single();
+
+  if (error) {
+    console.error('Error loading chat messages:', error.message);
+    return null;
+  }
+
+  return {
+    messages: data?.messages || [],
+    sources: data?.sources || []
+};
 }

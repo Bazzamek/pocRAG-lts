@@ -17,7 +17,9 @@ interface ChatFooterProps {
   onMessageChange: (message: string) => void
   onSubmit: (e: React.FormEvent) => void
   onKeyDown: (e: React.KeyboardEvent) => void
-  manageTools: any
+  manageTools: any,
+  onShowSources?: () => void
+
 }
 
 export function ChatFooter({
@@ -32,7 +34,9 @@ export function ChatFooter({
   onMessageChange,
   onSubmit,
   onKeyDown,
-  manageTools
+  manageTools,
+  onShowSources
+
 }: ChatFooterProps) {
   const calculatedRemainingChars = remainingChars ?? (maxLength - message.length)
   const isBusy = stage !== "DONE" || isLoading
@@ -45,7 +49,7 @@ export function ChatFooter({
   }
 
   return (
-    <div className="p-4 border-t bg-background fixed w-full bottom-0">
+    <div className="w-full p-4 border-t bg-background ">
       {isBusy && (
         <div className="flex items-center gap-2 mb-3 text-sm text-muted-foreground">
           <Loader2 className="h-4 w-4 animate-spin" />
@@ -55,7 +59,7 @@ export function ChatFooter({
 
       <form onSubmit={onSubmit} className="space-y-2">
 <div className="flex gap-2 mb-2">
-  <Tooltip>
+  {/* <Tooltip>
     <TooltipTrigger asChild>
       <Button
         variant={additionalTools ? "default" : "outline"}
@@ -69,8 +73,20 @@ export function ChatFooter({
       </Button>
     </TooltipTrigger>
     <TooltipContent>Zwróć źródła bez odpowiedzi</TooltipContent>
+  </Tooltip> */}
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <Button
+        variant={"default"}
+        size="icon"
+        onClick={onShowSources}
+        disabled={isBusy}
+      >
+        <Lightbulb />
+      </Button>
+    </TooltipTrigger>
+    <TooltipContent>Pokaż źródła użyte w konwersacji </TooltipContent>
   </Tooltip>
-
 </div>
 
         <div className="flex items-end gap-2">

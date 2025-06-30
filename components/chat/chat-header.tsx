@@ -23,7 +23,6 @@ export function ChatHeader({
   onShowSources
 }: ChatHeaderProps) {
   return (
-    <div className="fixed w-[87%] bg-white z-10">
       <div className="flex items-center justify-between w-full p-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="flex items-center gap-3">
           <Avatar>
@@ -68,7 +67,6 @@ export function ChatHeader({
 
         </div>
       </div>
-    </div>
 
   )
 }

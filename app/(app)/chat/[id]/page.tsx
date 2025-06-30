@@ -19,6 +19,7 @@ export default function ChatPage() {
     isGenerating,
     stage,
     sendMessage,
+    sourcesStore,
     clearChat
   } = useChat({
     chatID
@@ -44,11 +45,11 @@ export default function ChatPage() {
         onClearChat={clearChat}
         onShowSources={() => setIsSourceOpen(!isSourceOpen)}
       />
-      
       <ChatMessages 
         messages={messages}
         autoScroll={true}
       />
+
       
       <ChatFooter
         message={message}
@@ -58,11 +59,13 @@ export default function ChatPage() {
         additionalTools={additionTools}
         manageTools={manageTools}
         stage={stage}
+        onShowSources={() => setIsSourceOpen(!isSourceOpen)}
       />
       
       <SourcesSheets 
         isOpen={isSourceOpen} 
         setIsOpen={setIsSourceOpen}
+        sourcesStore={sourcesStore}
       />
     </div>
   )
