@@ -1,8 +1,21 @@
+import { GalleryVerticalEnd } from "lucide-react"
 
-export default function Home() {
+import { LoginForm } from "@/components/login-form"
+import { isUserLoggedIn,} from "@/lib/supabase.server"
+
+export default async function LoginPage() {
+  const isUser = await isUserLoggedIn(true)
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <p>RAG DEMO</p>
+    <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+      <div className="flex w-full max-w-sm flex-col gap-6">
+        <a href="#" className="flex items-center gap-2 self-center font-medium">
+          <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+            <GalleryVerticalEnd className="size-4" />
+          </div>
+          Lets Automate RAG.
+        </a>
+        <LoginForm />
+      </div>
     </div>
-  );
+  )
 }
