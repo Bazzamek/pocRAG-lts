@@ -22,10 +22,11 @@ async function handleLogin(formData: FormData) {
   try {
     await login(email, password)
     revalidatePath('/')
-    redirect('/chat/new')
   } catch (error: any) {
     throw new Error(error.message)
   }
+  
+  redirect('/chat/new')
 }
 
 export function LoginForm({
