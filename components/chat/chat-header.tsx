@@ -42,12 +42,13 @@ export function ChatHeader({
               </Badge>
 
               <span className="text-xs text-muted-foreground">
-                {{
-                  SEARCHING: "Szukam źródeł...",
-                  ANALYSIS: "Analizuję informacje...",
-                  ANSWERING: "Generuję odpowiedź...",
-                  DONE: "Zadaj pytanie"
-                }[stage]}
+              {{
+                SEARCHING: "Szukam źródeł...",
+                ANALYSIS: "Analizuję informacje...",
+                ANSWERING: "Generuję odpowiedź...",
+                DONE: "Zadaj pytanie"
+              }[stage ?? 'DONE']}
+
                 
               </span>
 

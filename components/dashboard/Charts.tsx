@@ -124,7 +124,13 @@ export default function Charts() {
                     name === 'tokeny' ? 'Tokeny' : 'Koszt'
                   ]}
                 />
-                <ChartLegend content={<ChartLegendContent />} />
+                
+                <ChartLegend 
+                content={
+                  //@ts-ignore
+                  <ChartLegendContent  />
+                  } 
+                  />
                 <Bar 
                   yAxisId="left"
                   dataKey="tokeny" 
@@ -168,7 +174,10 @@ export default function Charts() {
                   label={({percentage}) => `${percentage}%`}
                 />
                 <ChartLegend 
-                  content={<ChartLegendContent />}
+                content={
+                  //@ts-ignore
+                  <ChartLegendContent  />
+                  }                  
                   className="flex-wrap gap-2 [&>*]:basis-1/3 [&>*]:justify-center"
                 />
               </PieChart>
@@ -205,7 +214,11 @@ export default function Charts() {
                   content={<ChartTooltipContent />}
                   formatter={(value, name) => [`${value}%`, name]}
                 />
-                <ChartLegend content={<ChartLegendContent />} />
+                <ChartLegend
+                  content={
+                  //@ts-ignore
+                  <ChartLegendContent  />
+                  } />
                 <Area
                   type="monotone"
                   dataKey="positive"

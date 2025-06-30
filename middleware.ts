@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
   
   if(isUser){
     if (pathname === '/') {
-      return NextResponse.redirect(new URL('/chat', request.url))
+      return NextResponse.redirect(new URL('/chat/new', request.url))
     }
   } else {
     if (pathname !== '/') {

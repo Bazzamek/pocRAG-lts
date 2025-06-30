@@ -98,18 +98,22 @@ const processAssistantResponse = async (assistantId: string, content: string) =>
   for await (const value of iterator) {
     switch (value.stage) {
       case 'searching':
+        //@ts-ignore
         handleSearchingStage(assistantId, value.message);
         break;
       
       case 'processing':
+        //@ts-ignore
         sources = handleProcessingStage(assistantId, value.message, value.sources);
         break;
       
       case 'answering':
+        //@ts-ignore
         handleAnsweringStage(assistantId, value.message);
         break;
       
       case 'streaming':
+        //@ts-ignore
         fullAnswer = handleStreamingStage(assistantId, fullAnswer, value.token, sources);
         break;
       
